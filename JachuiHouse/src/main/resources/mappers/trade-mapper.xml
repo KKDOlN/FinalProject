@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.house.jachui.trade.model.store.TradeMapper">
+	<resultMap type="Trade" id="tradeResultMap">
+		<id 	property="tradeNo" 			column="TRADE_NO" />
+		<result property="userId"			column="USER_ID" />
+		<result property="tradeTitle" 		column="TRADE_TITLE" />
+		<result property="tradeContent" 	column="TRADE_CONTENT" />
+		<result property="tradePrice" 		column="TRADE_PRICE" />
+		<result property="viewCount" 		column="VIEW_COUNT" />
+		<result property="writeDate" 		column="WRITE_DATE" />
+		<result property="tradeFilename" 	column="TRADE_FILENAME" />
+		<result property="tradeFileRename" 	column="TRADE_FILERENAME" />
+		<result property="tradeFilepath" 	column="TRADE_FILEPATH" />
+		<result property="tradeYn"			column="TRADE_YN" />
+		<result property="tradeDate" 		column="TRADE_DATE" />
+		<result property="delYn" 			column="DEL_YN" />
+	</resultMap>
+	
+	
+	<select id="selectOneByNo" parameterType="int" resultMap="tradeResultMap">
+	    SELECT * FROM TRADE WHERE TRADE_NO = #{tradeNo}
+	</select>
+
+    <select id="selectListAll" resultMap="tradeResultMap">
+	    SELECT * FROM TRADE ORDER BY TRADE_NO
+	</select>
+
+	<select id="getTotalCount" resultType="_int">
+	    SELECT COUNT(*) FROM TRADE
+	</select>
+	
+	<select id="getTotalCountKeyword" resultType="_int">
+		SELECT COUNT(*) FROM TRADE WHERE TRADE_TITLE LIKE '%'||#{searchKeyword}||'%' 
+	</select>
+	
+    <select id="selectSearchList" resultType="NoticeVO">
+		SELECT * FROM NOTICE WHERE NOTICE_TITLE LIKE '%'||#{searchKeyword}||'%'
+	</select>
+    
+    
+	<insert id="insertTrade">
+		INSERT INTO TRADE VALUES(SEQ_TRADE_NO.NEXTVAL, #{userId}, #{tradeTitle}, #{tradeContent}, #{tradePrice},
+		 default, default, #{tradeFilename}, #{tradeFileRename}, #{tradeFilepath}, 'N', default. 'N')
+	</insert>
+	<update id="updateTrade">
+		UPDATE TRADE
+		SET TRADE_TITLE = #{tradeTitle},
+		    TRADE_CONTENT = #{tradeContent},
+		    TRADE_FILENAME = #{tradeFilename},
+		    TRADE_FILERENAME = #{tradeFileRename},
+		    TRADE_FILEPATH = #{tradeFilepath}
+		WHERE TRADE_NO = #{tradeNo}
+	</update>
+	<delete id="deleteTrade">
+		UPDATE TRADE
+		SET DEL_YN = 'Y'
+		WHERE TRADE_NO = #{tradeNo}
+	</delete>
+</mapper>
