@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+body{
+    margin: 0;
+    background-color: #fff9e9;
+}
+.logo img{
+    width: 220px;
+    height: 180px;
+    margin-top: 10px;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFAB87;
+    align-items: center;
+    height: 60px;
+    padding: 10px;
+    font-size: 20px;
+}
+header a{
+    text-decoration: none;
+    color: white;
+    padding: 30px;
+}
+header .logo {
+    font-size: 24px;
+}
+
+.loginBtn{
+    display: flex;
+    text-align: center;
+    margin-right: 50px;
+}
+
